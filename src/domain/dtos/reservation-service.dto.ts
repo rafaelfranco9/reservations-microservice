@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { WeekdaysDto } from './weekdays.dto';
 
-export class CreateRestaurantReservationDto {
+export class CreateReservationServiceDto {
   @IsDefined()
   @IsString()
   @IsNotEmpty()
@@ -41,6 +41,6 @@ export class CreateRestaurantReservationDto {
   readonly inactiveDates: string;
 }
 
-export class UpdateRestaurantReservationDto extends PartialType(
-  CreateRestaurantReservationDto,
+export class UpdateReservationServiceDto extends PartialType(
+  CreateReservationServiceDto,
 ) {}
