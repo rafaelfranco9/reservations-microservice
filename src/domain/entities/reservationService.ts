@@ -7,5 +7,5 @@ export class ReservationService {
   weekdays: Weekdays;
   fromHour: number;
   toHour: number;
-  inactiveDates: string;
+  inactiveDates: string[];
 }
