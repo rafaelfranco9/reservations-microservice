@@ -1,4 +1,4 @@
-import { IWeekdays } from '../valueObjects';
+import { IWeekdays } from './weekdays';
 
 export interface IReservationService {
   id: number;
