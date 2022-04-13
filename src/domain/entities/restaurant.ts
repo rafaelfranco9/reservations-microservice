@@ -1,10 +1,10 @@
-import { Area } from './area';
+import { IArea } from './area';
 
-export class Restaurant {
-  id: string;
+export interface IRestaurant {
+  id: number;
   name: string;
   openHour: number;
   closeHour: number;
   averageMealDuration: number;
-  areas: Area[];
+  areas: IArea[];
 }

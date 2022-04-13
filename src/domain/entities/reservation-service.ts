@@ -1,10 +1,10 @@
-import { Weekdays } from '../valueObjects';
+import { IWeekdays } from '../valueObjects';
 
-export class ReservationService {
-  id: string;
+export interface IReservationService {
+  id: number;
   restaurantId: string;
   isActive: boolean;
-  weekdays: Weekdays;
+  weekdays: IWeekdays;
   fromHour: number;
   toHour: number;
   inactiveDates: string[];

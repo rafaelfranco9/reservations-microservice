@@ -1,5 +1,5 @@
-export class Reservation {
-  id: string;
+export interface IReservation {
+  id: number;
   restaurantId: string;
   customer: string;
   date: string;

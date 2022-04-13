@@ -1,4 +1,4 @@
-export class Weekdays {
+export interface IWeekdays {
   monday: boolean;
   tuesday: boolean;
   wednesday: boolean;

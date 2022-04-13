@@ -1,5 +1,5 @@
-export class Tables {
-  id: string;
+export interface ITables {
+  id: number;
   quantity: number;
   min: number;
   max: number;

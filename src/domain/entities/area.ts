@@ -1,7 +1,7 @@
-import { Tables } from './tables';
+import { ITables } from './tables';
 
-export class Area {
-  id: string;
+export interface IArea {
+  id: number;
   name: string;
-  capacity: Tables[];
+  capacity: ITables[];
 }
