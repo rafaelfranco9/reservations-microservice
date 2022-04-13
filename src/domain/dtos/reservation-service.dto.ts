@@ -12,9 +12,9 @@ import { WeekdaysDto } from './weekdays.dto';
 
 export class CreateReservationServiceDto {
   @IsDefined()
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  readonly restaurantId: string;
+  readonly restaurantId: number;
 
   @IsDefined()
   @IsBoolean()
@@ -38,7 +38,7 @@ export class CreateReservationServiceDto {
 
   @IsDefined()
   @IsString({ each: true })
-  readonly inactiveDates: string;
+  readonly inactiveDates: string[];
 }
 
 export class UpdateReservationServiceDto extends PartialType(

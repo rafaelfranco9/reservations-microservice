@@ -14,6 +14,7 @@
       "@domain": ["src/domain"],
       "@application": ["src/application"],
       "@infrastructure": ["src/infrastructure"],
+      "@database": ["src/infrastructure/database"],
     },
     "incremental": true,
     "skipLibCheck": true,
