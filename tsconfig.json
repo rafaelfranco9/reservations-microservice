@@ -15,6 +15,7 @@
       "@application": ["src/application"],
       "@infrastructure": ["src/infrastructure"],
       "@database": ["src/infrastructure/database"],
+      "@repositories": ["src/infrastructure/repositories"],
     },
     "incremental": true,
     "skipLibCheck": true,
