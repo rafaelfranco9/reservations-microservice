@@ -1,7 +1,6 @@
+import { CreateRestaurantDto, IRestaurant, IRestaurantService } from '@domain';
 import { Injectable } from '@nestjs/common';
 import { RestaurantRepository } from '@repositories';
-import { IRestaurant } from 'src/domain/entities';
-import { IRestaurantService } from '../interfaces';
 
 @Injectable()
 export class RestaurantService implements IRestaurantService {
@@ -15,7 +14,7 @@ export class RestaurantService implements IRestaurantService {
     return this.restaurantRepository.getOne(id);
   }
 
-  create(item: IRestaurant): Promise<IRestaurant> {
+  create(item: CreateRestaurantDto): Promise<IRestaurant> {
     return this.restaurantRepository.create(item);
   }
 

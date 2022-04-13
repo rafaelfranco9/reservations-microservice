@@ -1,6 +1,14 @@
-import { IReservationService } from '@domain';
-import { ICrudOperations } from './crud-operations.interface';
+import {
+  CreateRestaurantDto,
+  ICrudOperations,
+  IRestaurant,
+  UpdateRestaurantDto,
+} from '@domain';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IReservationServiceService
-  extends ICrudOperations<IReservationService> {}
+export interface IRestaurantService
+  extends ICrudOperations<
+    IRestaurant,
+    CreateRestaurantDto,
+    UpdateRestaurantDto
+  > {}
