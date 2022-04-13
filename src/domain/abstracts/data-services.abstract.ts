@@ -1,4 +1,4 @@
-import { IReservationService, IRestaurant } from '../entities';
+import { IReservationService, IRestaurant } from '@domain';
 import { IGenericRepository } from './generic-repository.abstract';
 
 export abstract class IDataServices {

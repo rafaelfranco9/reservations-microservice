@@ -1,13 +1,13 @@
+import { Restaurant } from '@database';
 import {
   CommonmExceptionMessages,
   CreateRestaurantDto,
+  IGenericRepository,
   UpdateRestaurantDto,
 } from '@domain';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IGenericRepository } from 'src/domain/abstracts/generic-repository.abstract';
 import { Repository } from 'typeorm';
-import { Restaurant } from '../database';
 
 @Injectable()
 export class RestaurantRepository implements IGenericRepository<Restaurant> {

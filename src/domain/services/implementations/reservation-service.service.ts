@@ -1,7 +1,6 @@
-import { IReservationService } from '@domain';
+import { IReservationService, IReservationServiceService } from '@domain';
 import { Injectable } from '@nestjs/common';
 import { ReservationServiceRepository } from '@repositories';
-import { IReservationServiceService } from '../interfaces';
 
 @Injectable()
 export class ReservationServiceService implements IReservationServiceService {
