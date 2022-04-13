@@ -1,4 +1,8 @@
-import { CreateRestaurantDto, UpdateRestaurantDto } from '@domain';
+import {
+  CommonmExceptionMessages,
+  CreateRestaurantDto,
+  UpdateRestaurantDto,
+} from '@domain';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IGenericRepository } from 'src/domain/abstracts/generic-repository.abstract';
@@ -21,7 +25,9 @@ export class RestaurantRepository implements IGenericRepository<Restaurant> {
       relations: ['areas', 'areas.capacity'],
     });
     if (!restaurant) {
-      throw new NotFoundException(`Restaurant with id ${id} was not found`);
+      throw new NotFoundException(
+        CommonmExceptionMessages.itemNotFound('restaurant', id),
+      );
     }
     return restaurant;
   }
@@ -36,9 +42,11 @@ export class RestaurantRepository implements IGenericRepository<Restaurant> {
       id,
       ...item,
     });
-    console.log(JSON.stringify(restaurant));
+
     if (!restaurant) {
-      throw new NotFoundException(`Restaurant with id ${id} was not found`);
+      throw new NotFoundException(
+        CommonmExceptionMessages.itemNotFound('restaurant', id),
+      );
     }
     return this.repository.save(restaurant);
   }
