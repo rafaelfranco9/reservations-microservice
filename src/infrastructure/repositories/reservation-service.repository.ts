@@ -1,28 +1,28 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { ReservationService } from '@database';
 import {
   CommonmExceptionMessages,
   CreateReservationServiceDto,
-  IGenericRepository,
+  IReservationService,
+  IReservationServiceRepository,
   UpdateReservationServiceDto,
 } from '@domain';
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
 @Injectable()
 export class ReservationServiceRepository
-  implements IGenericRepository<ReservationService>
+  implements IReservationServiceRepository
 {
   constructor(
     @InjectRepository(ReservationService)
-    private readonly repository: Repository<ReservationService>,
+    private readonly repository: Repository<IReservationService>,
   ) {}
 
-  getAll(): Promise<ReservationService[]> {
+  getAll(): Promise<IReservationService[]> {
     return this.repository.find();
   }
 
-  async getOne(id: number): Promise<ReservationService> {
+  async getOne(id: number): Promise<IReservationService> {
     const reservationService = await this.repository.findOne(id);
     if (!reservationService) {
       throw new NotFoundException(
@@ -32,7 +32,7 @@ export class ReservationServiceRepository
     return reservationService;
   }
 
-  create(item: CreateReservationServiceDto): Promise<ReservationService> {
+  create(item: CreateReservationServiceDto): Promise<IReservationService> {
     const reservationService = this.repository.create(item);
     return this.repository.save(reservationService);
   }
@@ -40,7 +40,7 @@ export class ReservationServiceRepository
   async update(
     id: number,
     item: UpdateReservationServiceDto,
-  ): Promise<ReservationService> {
+  ): Promise<IReservationService> {
     const reservationService = await this.repository.preload({
       id,
       ...item,
@@ -53,7 +53,7 @@ export class ReservationServiceRepository
     return this.repository.save(reservationService);
   }
 
-  async delete(id: number): Promise<ReservationService> {
+  async delete(id: number): Promise<IReservationService> {
     const reservationService = await this.getOne(id);
     return this.repository.remove(reservationService);
   }

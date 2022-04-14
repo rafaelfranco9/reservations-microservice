@@ -1,23 +1,24 @@
+import { Inject, NotFoundException } from '@nestjs/common';
+import { IReservationRepository } from '@domain';
+import { Repository } from 'typeorm';
 import { Reservation } from '@database';
 import {
   CommonmExceptionMessages,
   CreateReservationDto,
-  IGenericRepository,
+  IReservation,
   UpdateReservationDto,
 } from '@domain';
-import { Inject, NotFoundException } from '@nestjs/common';
-import { Repository } from 'typeorm';
 
-export class ReservationRepository implements IGenericRepository<Reservation> {
+export class ReservationRepository implements IReservationRepository {
   constructor(
-    @Inject(Reservation) private readonly repository: Repository<Reservation>,
+    @Inject(Reservation) private readonly repository: Repository<IReservation>,
   ) {}
 
-  getAll(): Promise<Reservation[]> {
+  getAll(): Promise<IReservation[]> {
     return this.repository.find();
   }
 
-  async getOne(id: number): Promise<Reservation> {
+  async getOne(id: number): Promise<IReservation> {
     const reservation = await this.repository.findOne(id);
     if (!reservation) {
       throw new NotFoundException(
@@ -27,12 +28,12 @@ export class ReservationRepository implements IGenericRepository<Reservation> {
     return reservation;
   }
 
-  create(item: CreateReservationDto): Promise<Reservation> {
+  create(item: CreateReservationDto): Promise<IReservation> {
     const reservation = this.repository.create(item);
     return this.repository.save(reservation);
   }
 
-  async update(id: number, item: UpdateReservationDto): Promise<Reservation> {
+  async update(id: number, item: UpdateReservationDto): Promise<IReservation> {
     const reservation = await this.repository.preload({
       id,
       ...item,
@@ -45,7 +46,7 @@ export class ReservationRepository implements IGenericRepository<Reservation> {
     return this.repository.save(reservation);
   }
 
-  async delete(id: number): Promise<Reservation> {
+  async delete(id: number): Promise<IReservation> {
     const reservation = await this.getOne(id);
     return this.repository.remove(reservation);
   }
