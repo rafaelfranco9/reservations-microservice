@@ -32,6 +32,9 @@ export class ReservationService implements IReservationService {
   restaurantId: number;
 
   @JoinColumn()
-  @OneToOne(() => Restaurant, (restaurant) => restaurant.reservationServices)
+  @OneToOne(() => Restaurant, (restaurant) => restaurant.reservationServices, {
+    orphanedRowAction: 'delete',
+    onDelete: 'CASCADE',
+  })
   restaurant: Restaurant;
 }

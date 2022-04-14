@@ -1,6 +1,13 @@
-import { IArea, ITables } from '@domain';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { IArea, IReservation, ITables } from '@domain';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Area } from './area.entity';
+import { Reservation } from './reservation.entity';
 
 @Entity()
 export class Tables implements ITables {
@@ -22,4 +29,9 @@ export class Tables implements ITables {
     onUpdate: 'CASCADE',
   })
   area: IArea;
+
+  @OneToMany(() => Reservation, (reservation) => reservation.area, {
+    cascade: true,
+  })
+  reservations: IReservation[];
 }
