@@ -1,8 +1,8 @@
 import {
-  CreateReservationServiceDto,
-  IReservationServiceService,
-  ReservationServiceService,
-  UpdateReservationServiceDto,
+  CreateReservationConfigurationDto,
+  IReservationConfigurationService,
+  ReservationConfigurationService,
+  UpdateReservationConfigurationDto,
 } from '@domain';
 import {
   Body,
@@ -15,11 +15,11 @@ import {
   Put,
 } from '@nestjs/common';
 
-@Controller('reservation')
-export class ReservationServiceController {
+@Controller('configuration')
+export class ReservationConfigurationController {
   constructor(
-    @Inject(ReservationServiceService)
-    private readonly reservationService: IReservationServiceService,
+    @Inject(ReservationConfigurationService)
+    private readonly reservationService: IReservationConfigurationService,
   ) {}
 
   @Get()
@@ -34,7 +34,7 @@ export class ReservationServiceController {
 
   @Post()
   createReservation(
-    @Body() createReservationServiceDto: CreateReservationServiceDto,
+    @Body() createReservationServiceDto: CreateReservationConfigurationDto,
   ) {
     return this.reservationService.create(createReservationServiceDto);
   }
@@ -42,7 +42,7 @@ export class ReservationServiceController {
   @Put(':id')
   updateReservation(
     @Param('id') id: string,
-    @Body() updateReservationServiceDto: UpdateReservationServiceDto,
+    @Body() updateReservationServiceDto: UpdateReservationConfigurationDto,
   ) {
     return this.reservationService.update(+id, updateReservationServiceDto);
   }

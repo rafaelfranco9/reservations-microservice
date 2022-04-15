@@ -1,8 +1,8 @@
 import {
   CreateRestaurantDto,
-  ICrudOperations,
   IRestaurant,
   UpdateRestaurantDto,
+  ICrudOperations,
 } from '@domain';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

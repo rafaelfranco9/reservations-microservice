@@ -1,10 +1,18 @@
-import { CreateRestaurantDto, IRestaurant, IRestaurantService } from '@domain';
-import { Injectable } from '@nestjs/common';
+import {
+  CreateRestaurantDto,
+  IRestaurant,
+  IRestaurantRepository,
+  IRestaurantService,
+} from '@domain';
+import { Inject, Injectable } from '@nestjs/common';
 import { RestaurantRepository } from '@repositories';
 
 @Injectable()
 export class RestaurantService implements IRestaurantService {
-  constructor(private readonly restaurantRepository: RestaurantRepository) {}
+  constructor(
+    @Inject(RestaurantRepository)
+    private readonly restaurantRepository: IRestaurantRepository,
+  ) {}
 
   getAll(): Promise<IRestaurant[]> {
     return this.restaurantRepository.getAll();

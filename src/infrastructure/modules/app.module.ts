@@ -3,8 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReservationModule } from './reservation.module';
-
-import { ReservationServiceModule } from './reservationService.module';
+import { ReservationConfigurationModule } from './reservation-configuration.module';
 import { RestaurantModule } from './restaurant.module';
 
 @Module({
@@ -13,7 +12,7 @@ import { RestaurantModule } from './restaurant.module';
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     RestaurantModule,
     ReservationModule,
-    ReservationServiceModule,
+    ReservationConfigurationModule,
   ],
   controllers: [],
   providers: [],

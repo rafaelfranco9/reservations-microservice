@@ -1,4 +1,4 @@
-import { Inject, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { IReservationRepository } from '@domain';
 import { Repository } from 'typeorm';
 import { Reservation } from '@database';
@@ -8,10 +8,13 @@ import {
   IReservation,
   UpdateReservationDto,
 } from '@domain';
+import { InjectRepository } from '@nestjs/typeorm';
 
+@Injectable()
 export class ReservationRepository implements IReservationRepository {
   constructor(
-    @Inject(Reservation) private readonly repository: Repository<IReservation>,
+    @InjectRepository(Reservation)
+    private readonly repository: Repository<IReservation>,
   ) {}
 
   getAll(): Promise<IReservation[]> {
