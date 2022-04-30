@@ -9,4 +9,10 @@ export abstract class IReservationRepository extends IGenericBaseRepository<
   IReservation,
   CreateReservationDto,
   UpdateReservationDto
-> {}
+> {
+  abstract getByRestaurantId(id: number): Promise<IReservation[]>;
+  abstract getByRestaurantIdAndDate(
+    id: number,
+    date: string,
+  ): Promise<IReservation[]>;
+}

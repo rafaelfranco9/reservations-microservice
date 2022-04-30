@@ -9,5 +9,6 @@ import { ReservationController } from '@application';
   imports: [TypeOrmModule.forFeature([Reservation])],
   controllers: [ReservationController],
   providers: [ReservationRepository, ReservationService],
+  exports: [ReservationRepository],
 })
 export class ReservationModule {}

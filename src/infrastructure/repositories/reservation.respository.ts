@@ -53,4 +53,19 @@ export class ReservationRepository implements IReservationRepository {
     const reservation = await this.getOne(id);
     return this.repository.remove(reservation);
   }
+
+  async getByRestaurantId(id: number): Promise<IReservation[]> {
+    return this.repository.find({
+      where: { restaurantId: id },
+    });
+  }
+
+  async getByRestaurantIdAndDate(
+    id: number,
+    date: string,
+  ): Promise<IReservation[]> {
+    return this.repository.find({
+      where: { restaurantId: id, date: date },
+    });
+  }
 }
