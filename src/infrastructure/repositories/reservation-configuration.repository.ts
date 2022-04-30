@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReservationConfiguration } from '@database';
 import {
-  CommonmExceptionMessages,
+  CommonExceptionMessages,
   CreateReservationConfigurationDto,
   IReservationConfiguration,
   IReservationConfigurationRepository,
@@ -27,7 +27,7 @@ export class ReservationConfigurationRepository
     const reservationService = await this.repository.findOne(id);
     if (!reservationService) {
       throw new NotFoundException(
-        CommonmExceptionMessages.itemNotFound('reservation service', id),
+        CommonExceptionMessages.itemNotFound('reservation service', id),
       );
     }
     return reservationService;
@@ -50,7 +50,7 @@ export class ReservationConfigurationRepository
     });
     if (!reservationService) {
       throw new NotFoundException(
-        CommonmExceptionMessages.itemNotFound('reservation service', id),
+        CommonExceptionMessages.itemNotFound('reservation service', id),
       );
     }
     return this.repository.save(reservationService);

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Restaurant } from '@database';
 import {
-  CommonmExceptionMessages,
+  CommonExceptionMessages,
   CreateRestaurantDto,
   IRestaurant,
   IRestaurantRepository,
@@ -27,7 +27,7 @@ export class RestaurantRepository implements IRestaurantRepository {
     });
     if (!restaurant) {
       throw new NotFoundException(
-        CommonmExceptionMessages.itemNotFound('restaurant', id),
+        CommonExceptionMessages.itemNotFound('restaurant', id),
       );
     }
     return restaurant;
@@ -46,7 +46,7 @@ export class RestaurantRepository implements IRestaurantRepository {
 
     if (!restaurant) {
       throw new NotFoundException(
-        CommonmExceptionMessages.itemNotFound('restaurant', id),
+        CommonExceptionMessages.itemNotFound('restaurant', id),
       );
     }
     return this.repository.save(restaurant);

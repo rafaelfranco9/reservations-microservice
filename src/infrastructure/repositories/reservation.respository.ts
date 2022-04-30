@@ -2,13 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { IReservationRepository } from '@domain';
 import { Repository } from 'typeorm';
 import { Reservation } from '@database';
+import { InjectRepository } from '@nestjs/typeorm';
 import {
-  CommonmExceptionMessages,
+  CommonExceptionMessages,
   CreateReservationDto,
   IReservation,
   UpdateReservationDto,
 } from '@domain';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ReservationRepository implements IReservationRepository {
@@ -25,7 +25,7 @@ export class ReservationRepository implements IReservationRepository {
     const reservation = await this.repository.findOne(id);
     if (!reservation) {
       throw new NotFoundException(
-        CommonmExceptionMessages.itemNotFound('reservation', id),
+        CommonExceptionMessages.itemNotFound('reservation', id),
       );
     }
     return reservation;
@@ -43,7 +43,7 @@ export class ReservationRepository implements IReservationRepository {
     });
     if (!reservation) {
       throw new NotFoundException(
-        CommonmExceptionMessages.itemNotFound('reservation', id),
+        CommonExceptionMessages.itemNotFound('reservation', id),
       );
     }
     return this.repository.save(reservation);
