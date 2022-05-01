@@ -1,3 +1,5 @@
+import { Inject, Injectable } from '@nestjs/common';
+import { ReservationRepository, RestaurantRepository } from '@repositories';
 import {
   CreateRestaurantDto,
   IReservation,
@@ -5,9 +7,13 @@ import {
   IRestaurant,
   IRestaurantRepository,
   IRestaurantService,
+  SlotsByTimeInterval,
+  TimeFrame,
+  TimeSlotsByArea,
+  RESERVATION_TIME_INTERVAL,
+  ReservationHelper,
+  RestaurantHelper,
 } from '@domain';
-import { Inject, Injectable } from '@nestjs/common';
-import { ReservationRepository, RestaurantRepository } from '@repositories';
 
 @Injectable()
 export class RestaurantService implements IRestaurantService {
@@ -52,5 +58,50 @@ export class RestaurantService implements IRestaurantService {
       restaurant.id,
       date,
     );
+  }
+
+  async getReservationSlots(
+    id: number,
+    date: string,
+  ): Promise<TimeSlotsByArea> {
+    const restaurant = await this.getOne(id);
+    const reservations = await this.getAllReservationsByDate(id, date);
+    const timeSlotsByArea: TimeSlotsByArea = {};
+    let slotsByTimeInterval: SlotsByTimeInterval = {};
+    const lastSlotTime = restaurant.closeHour - RESERVATION_TIME_INTERVAL;
+
+    restaurant.areas.forEach((area) => {
+      let timer = restaurant.openHour;
+
+      while (timer <= lastSlotTime) {
+        const currentTimeframe: TimeFrame = {
+          from: timer,
+          to: timer + restaurant.averageMealDuration - 1,
+        };
+
+        const currentReservations =
+          ReservationHelper.getReservationsInTimeframe(
+            reservations,
+            currentTimeframe,
+          );
+
+        const tablesAvailable = RestaurantHelper.getAreaCapacityUpdated(
+          area.capacity,
+          currentReservations,
+        );
+
+        slotsByTimeInterval[timer.toString()] = RestaurantHelper.createTimeSlot(
+          tablesAvailable,
+          currentTimeframe,
+        );
+
+        timer += RESERVATION_TIME_INTERVAL;
+      }
+
+      timeSlotsByArea[area.name] = slotsByTimeInterval;
+      slotsByTimeInterval = {};
+    });
+
+    return timeSlotsByArea;
   }
 }

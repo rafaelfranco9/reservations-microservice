@@ -16,6 +16,7 @@
       "@infrastructure": ["src/infrastructure"],
       "@database": ["src/infrastructure/database"],
       "@repositories": ["src/infrastructure/repositories"],
+      "@exceptions":["src/domain/exceptions"],
     },
     "incremental": true,
     "skipLibCheck": true,

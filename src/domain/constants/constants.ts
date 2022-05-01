@@ -1,0 +1,1 @@
+export const RESERVATION_TIME_INTERVAL = 30;

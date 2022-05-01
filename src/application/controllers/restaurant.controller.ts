@@ -59,4 +59,9 @@ export class RestaurantController {
   delete(@Param('id') id: string) {
     return this.restaurantService.delete(+id);
   }
+
+  @Get(':id/availability/:date')
+  async getAvailability(@Param('id') id: string, @Param('date') date: string) {
+    return this.restaurantService.getReservationSlots(+id, date);
+  }
 }
