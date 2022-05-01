@@ -9,10 +9,10 @@ import {
   IRestaurantService,
   SlotsByTimeInterval,
   TimeFrame,
-  TimeSlotsByArea,
   RESERVATION_TIME_INTERVAL,
   ReservationHelper,
   RestaurantHelper,
+  AreaReservationSlots,
 } from '@domain';
 
 @Injectable()
@@ -63,12 +63,12 @@ export class RestaurantService implements IRestaurantService {
   async getReservationSlots(
     id: number,
     date: string,
-  ): Promise<TimeSlotsByArea> {
+  ): Promise<AreaReservationSlots[]> {
     const restaurant = await this.getOne(id);
     const reservations = await this.getAllReservationsByDate(id, date);
-    const timeSlotsByArea: TimeSlotsByArea = {};
+    const areasReservationSlots: AreaReservationSlots[] = [];
     let slotsByTimeInterval: SlotsByTimeInterval = {};
-    const lastSlotTime = restaurant.closeHour - RESERVATION_TIME_INTERVAL;
+    const lastSlotTime = restaurant.closeHour - restaurant.averageMealDuration;
 
     restaurant.areas.forEach((area) => {
       let timer = restaurant.openHour;
@@ -98,10 +98,15 @@ export class RestaurantService implements IRestaurantService {
         timer += RESERVATION_TIME_INTERVAL;
       }
 
-      timeSlotsByArea[area.name] = slotsByTimeInterval;
+      areasReservationSlots.push({
+        id: area.id,
+        name: area.name,
+        slots: slotsByTimeInterval,
+      });
+
       slotsByTimeInterval = {};
     });
 
-    return timeSlotsByArea;
+    return areasReservationSlots;
   }
 }

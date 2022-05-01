@@ -3,8 +3,12 @@ export class Slot {
   endTime: number;
   partySize: number;
   openSpots: number;
+  tablesId: number[];
 }
 
-//area name -> time interval -> slots
 export type SlotsByTimeInterval = Record<string, Slot[]>;
-export type TimeSlotsByArea = Record<string, SlotsByTimeInterval>;
+export interface AreaReservationSlots {
+  id: number;
+  name: string;
+  slots: SlotsByTimeInterval;
+}

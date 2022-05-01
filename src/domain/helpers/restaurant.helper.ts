@@ -30,12 +30,14 @@ export class RestaurantHelper {
         );
         if (slotWithPartySize) {
           slotWithPartySize.openSpots += table.quantity;
+          slotWithPartySize.tablesId.push(table.id);
         } else {
           slots.push({
             openSpots: table.quantity,
             partySize: partySize,
             startTime: timeframe.from,
             endTime: timeframe.to,
+            tablesId: [table.id],
           });
         }
       });
