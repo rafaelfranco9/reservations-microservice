@@ -1,6 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { IReservationRepository } from '@domain';
-import { Repository } from 'typeorm';
+import { IReservationRepository, TimeFrame } from '@domain';
+import {
+  LessThanOrEqual,
+  MoreThan,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 import { Reservation } from '@database';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -66,6 +71,21 @@ export class ReservationRepository implements IReservationRepository {
   ): Promise<IReservation[]> {
     return this.repository.find({
       where: { restaurantId: id, date: date },
+    });
+  }
+
+  async getByTablesIdAndDateTime(
+    tablesId: number,
+    date: string,
+    timeframe: TimeFrame,
+  ): Promise<IReservation[]> {
+    return this.repository.find({
+      where: {
+        tablesId: tablesId,
+        date: date,
+        fromHour: MoreThanOrEqual(timeframe.from),
+        toHour: LessThanOrEqual(timeframe.to),
+      },
     });
   }
 }

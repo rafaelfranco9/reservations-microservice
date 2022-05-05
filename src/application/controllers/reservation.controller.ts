@@ -13,7 +13,9 @@ import {
   Param,
   Post,
   Put,
+  UsePipes,
 } from '@nestjs/common';
+import { ReservationValidationPipe } from '../pipes/reservation-validation.pipe';
 
 @Controller('reservation')
 export class ReservationController {
@@ -33,7 +35,9 @@ export class ReservationController {
   }
 
   @Post()
-  create(@Body() createReservationDto: CreateReservationDto) {
+  create(
+    @Body(ReservationValidationPipe) createReservationDto: CreateReservationDto,
+  ) {
     return this.reservationRepository.create(createReservationDto);
   }
 

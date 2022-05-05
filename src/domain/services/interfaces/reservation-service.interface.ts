@@ -11,4 +11,6 @@ export interface IReservationService
     IReservation,
     CreateReservationDto,
     UpdateReservationDto
-  > {}
+  > {
+  validIncomingReservation(reservation: CreateReservationDto): Promise<boolean>;
+}

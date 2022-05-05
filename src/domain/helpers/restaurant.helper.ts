@@ -7,12 +7,14 @@ export class RestaurantHelper {
     reservations: IReservation[],
   ): ITables[] {
     return capacity.map((tables) => {
-      if (
-        reservations.find((reservation) => reservation.tablesId == tables.id)
-      ) {
-        return { ...tables, quantity: tables.quantity - 1 };
-      }
-      return tables;
+      const numOfTableReservations = reservations.reduce((acc, curr) => {
+        if (curr.tablesId == tables.id) {
+          return (acc += 1);
+        }
+        return acc;
+      }, 0);
+
+      return { ...tables, quantity: tables.quantity - numOfTableReservations };
     });
   }
 
@@ -20,7 +22,7 @@ export class RestaurantHelper {
     const slots: Slot[] = [];
 
     tables.forEach((table) => {
-      if (table.quantity == 0) return;
+      if (table.quantity < 1) return;
 
       const interations = table.max - table.min + 1;
       [...Array(interations).keys()].forEach((value) => {
