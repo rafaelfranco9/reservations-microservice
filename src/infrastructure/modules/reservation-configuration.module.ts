@@ -12,5 +12,9 @@ import { ReservationConfigurationRepository } from '@repositories';
     ReservationConfigurationRepository,
     ReservationConfigurationService,
   ],
+  exports: [
+    ReservationConfigurationRepository,
+    ReservationConfigurationService,
+  ],
 })
 export class ReservationConfigurationModule {}

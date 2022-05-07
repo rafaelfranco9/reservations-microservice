@@ -70,4 +70,13 @@ export class TimeHelper {
     const parsedDate = moment(date, 'MM-DD-YYYY', true);
     return moment().diff(parsedDate, 'days');
   }
+
+  static dateIsInList(date: string, dateList: string[]) {
+    return dateList.some((d) => d === date);
+  }
+
+  static getWeekday(date: string) {
+    return moment(date, 'MM-DD-YYYY', true).isoWeekday();
+    //1 monday - 7 sunday
+  }
 }

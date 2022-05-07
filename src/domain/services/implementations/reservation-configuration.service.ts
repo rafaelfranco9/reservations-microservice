@@ -37,4 +37,8 @@ export class ReservationConfigurationService
   delete(id: number): Promise<IReservationConfiguration> {
     return this.reservationServiceRepository.delete(id);
   }
+
+  getByRestaurantId(id: number): Promise<IReservationConfiguration> {
+    return this.reservationServiceRepository.getByRestaurantId(id);
+  }
 }

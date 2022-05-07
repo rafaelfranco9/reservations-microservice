@@ -11,4 +11,6 @@ export interface IReservationConfigurationService
     IReservationConfiguration,
     CreateReservationConfigurationDto,
     UpdateReservationConfigurationDto
-  > {}
+  > {
+  getByRestaurantId(id: number): Promise<IReservationConfiguration>;
+}

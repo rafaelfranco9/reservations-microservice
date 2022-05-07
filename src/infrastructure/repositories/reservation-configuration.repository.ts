@@ -60,4 +60,10 @@ export class ReservationConfigurationRepository
     const reservationService = await this.getOne(id);
     return this.repository.remove(reservationService);
   }
+
+  async getByRestaurantId(id: number): Promise<IReservationConfiguration> {
+    return this.repository.findOne({
+      where: { restaurantId: id },
+    });
+  }
 }

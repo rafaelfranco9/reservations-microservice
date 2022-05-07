@@ -4,18 +4,22 @@ import {
   ReservationHelper,
   ReservationTimeframeException,
   TimeFrame,
+  IReservationConfiguration,
 } from '@domain';
 import { AbstractHandler } from '../abstract-handler.abstract';
 
 export class ValidTimeframeHandler extends AbstractHandler<CreateReservationDto> {
-  constructor(private readonly restaurant: IRestaurant) {
+  constructor(
+    private readonly restaurant: IRestaurant,
+    private readonly configuration: IReservationConfiguration,
+  ) {
     super();
   }
 
   public handle(reservation: CreateReservationDto): CreateReservationDto {
-    const restaurantOperationHours: TimeFrame = {
-      from: this.restaurant.openHour,
-      to: this.restaurant.closeHour,
+    const reservationAcceptanceTimeframe: TimeFrame = {
+      from: this.configuration.fromHour,
+      to: this.configuration.toHour,
     };
 
     const reservationTimeframe: TimeFrame = {
@@ -25,7 +29,7 @@ export class ValidTimeframeHandler extends AbstractHandler<CreateReservationDto>
 
     if (
       ReservationHelper.validTimeFrame(
-        restaurantOperationHours,
+        reservationAcceptanceTimeframe,
         reservationTimeframe,
         this.restaurant.averageMealDuration,
       )

@@ -9,4 +9,6 @@ export abstract class IReservationConfigurationRepository extends IGenericBaseRe
   IReservationConfiguration,
   CreateReservationConfigurationDto,
   UpdateReservationConfigurationDto
-> {}
+> {
+  abstract getByRestaurantId(id: number): Promise<IReservationConfiguration>;
+}

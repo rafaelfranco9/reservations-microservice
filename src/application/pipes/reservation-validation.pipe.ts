@@ -18,6 +18,8 @@ import {
   ValidPartySizeHandler,
   ValidTableHandler,
   ValidTimeframeHandler,
+  ReservationConfigurationService,
+  IReservationConfigurationService,
 } from '@domain';
 
 @Injectable()
@@ -27,6 +29,8 @@ export class ReservationValidationPipe implements PipeTransform {
     private readonly reservationService: IReservationService,
     @Inject(RestaurantService)
     private readonly restaurantService: IRestaurantService,
+    @Inject(ReservationConfigurationService)
+    private readonly reservationConfigurationService: IReservationConfigurationService,
   ) {}
 
   async transform(
@@ -35,11 +39,15 @@ export class ReservationValidationPipe implements PipeTransform {
   ) {
     const { areaId, tablesId, restaurantId } = reservation;
     const restaurant = await this.restaurantService.getOne(restaurantId);
+    const configuration =
+      await this.reservationConfigurationService.getByRestaurantId(
+        restaurantId,
+      );
 
     const validationChain = new ChainInitializer<CreateReservationDto>();
     validationChain
-      .setNext(new ValidDateHandler())
-      .setNext(new ValidTimeframeHandler(restaurant))
+      .setNext(new ValidDateHandler(configuration))
+      .setNext(new ValidTimeframeHandler(restaurant, configuration))
       .setNext(new ValidAreaHandler(restaurant))
       .setNext(new ValidTableHandler(restaurant, areaId))
       .setNext(new ValidPartySizeHandler(restaurant));
@@ -64,5 +72,3 @@ export class ReservationValidationPipe implements PipeTransform {
     return validReservation;
   }
 }
-
-//TODO: VALIDATE BOOKING SERVICE CONDITIONS
