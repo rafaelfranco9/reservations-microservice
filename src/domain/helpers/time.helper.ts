@@ -1,6 +1,7 @@
 //ALL TIMES IN THE APP ARE MANAGE IN THIS FORMAT 13:40 = 13*60 + 40 = 820
 
 import { TimeFormatException } from '@domain';
+import * as moment from 'moment';
 import { TimeFrame } from '../valueObjects';
 
 export class TimeHelper {
@@ -42,5 +43,31 @@ export class TimeHelper {
 
   static timeIsGreaterThan(timeToValidate: number, time: number): boolean {
     return timeToValidate > time;
+  }
+
+  static getCurrentTimeInMinutes() {
+    const current = moment().format('HH:mm');
+    return this.convert24hTimeToMinutes(current);
+  }
+
+  static isValidDate(date: string) {
+    return moment(date, 'MM-DD-YYYY', true).isValid();
+  }
+
+  static isToday(date: string) {
+    return moment(date, 'MM-DD-YYYY', true).isSame(moment(), 'date');
+  }
+
+  static isAfterToday(date: string) {
+    return moment(date, 'MM-DD-YYYY', true).isAfter(moment(), 'date');
+  }
+
+  static isBeforeToday(date: string) {
+    return moment(date, 'MM-DD-YYYY', true).isBefore(moment(), 'date');
+  }
+
+  static daysDifferenceFromToday(date: string) {
+    const parsedDate = moment(date, 'MM-DD-YYYY', true);
+    return moment().diff(parsedDate, 'days');
   }
 }

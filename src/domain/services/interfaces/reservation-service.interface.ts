@@ -3,6 +3,7 @@ import {
   CreateReservationDto,
   UpdateReservationDto,
   ICrudOperations,
+  TimeFrame,
 } from '@domain';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -12,5 +13,9 @@ export interface IReservationService
     CreateReservationDto,
     UpdateReservationDto
   > {
-  validIncomingReservation(reservation: CreateReservationDto): Promise<boolean>;
+  getByTablesIdAndDateTime(
+    tablesId: number,
+    date: string,
+    timeframe: TimeFrame,
+  ): Promise<IReservation[]>;
 }

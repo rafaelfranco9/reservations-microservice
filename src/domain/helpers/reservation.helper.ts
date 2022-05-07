@@ -1,7 +1,6 @@
 import { IReservation, ITables } from '../entities';
 import { TimeFrame } from '../valueObjects';
 import { TimeHelper } from './time.helper';
-import moment from 'moment';
 
 export class ReservationHelper {
   static getReservationsInTimeframe(
@@ -33,9 +32,5 @@ export class ReservationHelper {
       reservationSlotTimeframe.to - reservationSlotTimeframe.from ==
         restaurantMealAverage
     );
-  }
-
-  static validDate(date: string): boolean {
-    return moment(date, 'MM-DD-YYYY').isValid();
   }
 }

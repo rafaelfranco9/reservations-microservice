@@ -6,3 +6,4 @@ export * from './services';
 export * from './valueObjects';
 export * from './constants';
 export * from './helpers';
+export * from './chainValidators';
