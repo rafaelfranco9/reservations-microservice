@@ -10,7 +10,7 @@ export class ReservationHelper {
     return reservations.filter((reservation) => {
       const reservationTimeframe: TimeFrame = {
         from: reservation.fromHour,
-        to: reservation.toHour,
+        to: reservation.toHour - 1,
       };
       return TimeHelper.timeFramesIntersect(timeframe, reservationTimeframe);
     });
@@ -29,7 +29,7 @@ export class ReservationHelper {
       reservationSlotTimeframe.from >= restaurantOperationTimeframe.from &&
       reservationSlotTimeframe.to <= restaurantOperationTimeframe.to &&
       reservationSlotTimeframe.to > reservationSlotTimeframe.from &&
-      reservationSlotTimeframe.to - reservationSlotTimeframe.from ==
+      reservationSlotTimeframe.to - reservationSlotTimeframe.from <=
         restaurantMealAverage
     );
   }

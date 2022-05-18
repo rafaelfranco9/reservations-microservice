@@ -76,7 +76,7 @@ export class RestaurantService implements IRestaurantService {
       while (timer <= lastSlotTime) {
         const currentTimeframe: TimeFrame = {
           from: timer,
-          to: timer + restaurant.averageMealDuration - 1,
+          to: timer + restaurant.averageMealDuration,
         };
 
         const currentReservations =

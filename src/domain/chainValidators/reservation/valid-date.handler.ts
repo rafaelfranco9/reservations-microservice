@@ -8,6 +8,7 @@ import {
   RestaurantReservationsInactive,
   ReservationConfigurationHelper,
   IsoWeekdays,
+  ReservationDateSoFarException,
 } from '@domain';
 import { AbstractHandler } from '../abstract-handler.abstract';
 
@@ -29,6 +30,8 @@ export class ValidDateHandler extends AbstractHandler<CreateReservationDto> {
 
   private validateWithCurrent(reservation: CreateReservationDto) {
     if (TimeHelper.isAfterToday(reservation.date)) {
+      if (TimeHelper.daysDifferenceFromToday(reservation.date) > 60)
+        throw new ReservationDateSoFarException();
       return true;
     }
 

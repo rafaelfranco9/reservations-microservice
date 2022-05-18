@@ -68,7 +68,7 @@ export class TimeHelper {
 
   static daysDifferenceFromToday(date: string) {
     const parsedDate = moment(date, 'MM-DD-YYYY', true);
-    return moment().diff(parsedDate, 'days');
+    return parsedDate.diff(moment(), 'days');
   }
 
   static dateIsInList(date: string, dateList: string[]) {
