@@ -40,7 +40,7 @@ export class CreateReservationDto {
   @IsDefined()
   @IsNumber()
   @IsNotEmpty()
-  readonly tablesId: number;
+  readonly tableGroupId: number;
 }
 
 export class UpdateReservationDto extends PartialType(CreateReservationDto) {}

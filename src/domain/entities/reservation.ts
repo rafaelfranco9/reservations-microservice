@@ -7,5 +7,6 @@ export interface IReservation {
   toHour: number;
   partySize: number;
   areaId: number;
-  tablesId: number;
+  tableGroupId: number;
 }
+//TODO: AGREGAR STATUS

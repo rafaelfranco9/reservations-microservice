@@ -37,7 +37,7 @@ export class ReservationValidationPipe implements PipeTransform {
     reservation: CreateReservationDto,
     metadata: ArgumentMetadata,
   ) {
-    const { areaId, tablesId, restaurantId } = reservation;
+    const { areaId, tableGroupId, restaurantId } = reservation;
     const restaurant = await this.restaurantService.getOne(restaurantId);
     const configuration =
       await this.reservationConfigurationService.getByRestaurantId(
@@ -56,14 +56,14 @@ export class ReservationValidationPipe implements PipeTransform {
 
     const overlapReservations =
       await this.reservationService.getByTablesIdAndDateTime(
-        validReservation.tablesId,
+        validReservation.tableGroupId,
         validReservation.date,
         new TimeFrame(validReservation.fromHour, validReservation.toHour),
       );
 
     const requestedArea = restaurant.areas.find((area) => area.id == areaId);
     const requestedTableGroup = requestedArea.capacity.find(
-      (tables) => tables.id == tablesId,
+      (tableGroup) => tableGroup.id == tableGroupId,
     );
     if (requestedTableGroup.quantity - overlapReservations.length <= 0) {
       throw new ReservationSlotException();

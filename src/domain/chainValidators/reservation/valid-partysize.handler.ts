@@ -14,7 +14,7 @@ export class ValidPartySizeHandler extends AbstractHandler<CreateReservationDto>
   public handle(reservation: CreateReservationDto): CreateReservationDto {
     const tablesGroup = this.restaurant.areas
       .find((area) => area.id == reservation.areaId)
-      .capacity.find((tables) => tables.id == reservation.tablesId);
+      .capacity.find((tableGroup) => tableGroup.id == reservation.tableGroupId);
 
     if (ReservationHelper.validPartySize(reservation.partySize, tablesGroup)) {
       return super.handle(reservation);

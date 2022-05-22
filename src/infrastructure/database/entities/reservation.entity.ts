@@ -1,4 +1,4 @@
-import { IArea, IReservation, ITables } from '@domain';
+import { IArea, IReservation, ITableGroup } from '@domain';
 import {
   Column,
   Entity,
@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Area } from './area.entity';
 import { Restaurant } from './restaurant.entity';
-import { Tables } from './tables.entity';
+import { TableGroup } from './table-group.entity';
 
 @Entity()
 export class Reservation implements IReservation {
@@ -51,13 +51,13 @@ export class Reservation implements IReservation {
   @Column({ type: 'int' })
   areaId: number;
 
-  @ManyToOne(() => Tables, (tables) => tables.reservations, {
+  @ManyToOne(() => TableGroup, (tableGroup) => tableGroup.reservations, {
     orphanedRowAction: 'delete',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  tables: ITables;
+  tableGroup: ITableGroup;
 
   @Column({ type: 'int' })
-  tablesId: number;
+  tableGroupId: number;
 }

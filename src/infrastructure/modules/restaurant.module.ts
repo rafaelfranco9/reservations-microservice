@@ -1,5 +1,5 @@
 import { RestaurantController } from '@application';
-import { Area, Restaurant, Tables } from '@database';
+import { Area, Restaurant, TableGroup } from '@database';
 import { RestaurantService } from '@domain';
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,7 +8,7 @@ import { ReservationModule } from './reservation.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Restaurant, Area, Tables]),
+    TypeOrmModule.forFeature([Restaurant, Area, TableGroup]),
     forwardRef(() => ReservationModule),
   ],
   controllers: [RestaurantController],

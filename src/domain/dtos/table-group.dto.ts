@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class TableDto {
+export class TableGroupDto {
   @IsNumber()
   @IsNotEmpty()
   readonly quantity: number;

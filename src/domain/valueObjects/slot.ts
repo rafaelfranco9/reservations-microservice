@@ -3,7 +3,7 @@ export class Slot {
   endTime: number;
   partySize: number;
   openSpots: number;
-  tablesId: number[];
+  tableGroupId: number[];
 }
 
 export type SlotsByTimeInterval = Record<string, Slot[]>;

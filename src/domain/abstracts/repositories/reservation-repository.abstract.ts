@@ -19,7 +19,7 @@ export abstract class IReservationRepository extends IGenericBaseRepository<
   ): Promise<IReservation[]>;
 
   abstract getByTablesIdAndDateTime(
-    tableId: number,
+    tableGroupId: number,
     date: string,
     timeframe: TimeFrame,
   ): Promise<IReservation[]>;

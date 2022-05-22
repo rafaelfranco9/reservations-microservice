@@ -14,7 +14,7 @@ export interface IReservationService
     UpdateReservationDto
   > {
   getByTablesIdAndDateTime(
-    tablesId: number,
+    tableGroupId: number,
     date: string,
     timeframe: TimeFrame,
   ): Promise<IReservation[]>;

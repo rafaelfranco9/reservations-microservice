@@ -1,5 +1,5 @@
 import { CreateReservationDto, IRestaurant } from '@domain';
-import { ReservationTableException } from '@exceptions';
+import { ReservationTableGroupException } from '@exceptions';
 import { AbstractHandler } from '../abstract-handler.abstract';
 
 export class ValidTableHandler extends AbstractHandler<CreateReservationDto> {
@@ -16,10 +16,12 @@ export class ValidTableHandler extends AbstractHandler<CreateReservationDto> {
     );
 
     if (
-      area.capacity.find((tableGroup) => tableGroup.id == reservation.tablesId)
+      area.capacity.find(
+        (tableGroup) => tableGroup.id == reservation.tableGroupId,
+      )
     ) {
       return super.handle(reservation);
     }
-    throw new ReservationTableException();
+    throw new ReservationTableGroupException();
   }
 }

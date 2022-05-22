@@ -1,4 +1,4 @@
-import { IReservation, ITables } from '../entities';
+import { IReservation, ITableGroup } from '../entities';
 import { TimeFrame } from '../valueObjects';
 import { TimeHelper } from './time.helper';
 
@@ -16,7 +16,7 @@ export class ReservationHelper {
     });
   }
 
-  static validPartySize(partySize: number, tableGroup: ITables): boolean {
+  static validPartySize(partySize: number, tableGroup: ITableGroup): boolean {
     return partySize >= tableGroup.min && partySize <= tableGroup.max;
   }
 

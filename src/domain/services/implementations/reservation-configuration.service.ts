@@ -25,6 +25,7 @@ export class ReservationConfigurationService
 
   create(item: IReservationConfiguration): Promise<IReservationConfiguration> {
     return this.reservationServiceRepository.create(item);
+    //TODO: VALIDAR TIMEFRAME PARA QUE ESTE DENTRO DE LAS OPERATIONS HOURS DEL RESTORANTE
   }
 
   update(
@@ -41,4 +42,5 @@ export class ReservationConfigurationService
   getByRestaurantId(id: number): Promise<IReservationConfiguration> {
     return this.reservationServiceRepository.getByRestaurantId(id);
   }
+  //TODO: AGREGAR METODO QUE VALIDE SI EL EXISTE EL RESTAURANT ID ANTES DE INTENTAR CREAR
 }

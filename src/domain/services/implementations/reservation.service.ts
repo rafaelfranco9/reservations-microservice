@@ -40,12 +40,12 @@ export class ReservationService implements IReservationService {
   }
 
   getByTablesIdAndDateTime(
-    tablesId: number,
+    tableGroupId: number,
     date: string,
     timeframe: TimeFrame,
   ) {
     return this.reservationRepository.getByTablesIdAndDateTime(
-      tablesId,
+      tableGroupId,
       date,
       timeframe,
     );

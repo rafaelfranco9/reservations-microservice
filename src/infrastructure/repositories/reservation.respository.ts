@@ -75,13 +75,13 @@ export class ReservationRepository implements IReservationRepository {
   }
 
   async getByTablesIdAndDateTime(
-    tablesId: number,
+    tableGroupId: number,
     date: string,
     timeframe: TimeFrame,
   ): Promise<IReservation[]> {
     return this.repository.find({
       where: {
-        tablesId: tablesId,
+        tableGroupId: tableGroupId,
         date: date,
         fromHour: MoreThanOrEqual(timeframe.from),
         toHour: LessThanOrEqual(timeframe.to),

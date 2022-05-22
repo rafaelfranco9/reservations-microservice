@@ -71,7 +71,7 @@ export class RestaurantService implements IRestaurantService {
     const lastSlotTime = restaurant.closeHour - restaurant.averageMealDuration;
 
     restaurant.areas.forEach((area) => {
-      let timer = restaurant.openHour;
+      let timer = restaurant.openHour; //TODO: ESTO DEBERIA SER BOOKING SERVICE HOURS
 
       while (timer <= lastSlotTime) {
         const currentTimeframe: TimeFrame = {

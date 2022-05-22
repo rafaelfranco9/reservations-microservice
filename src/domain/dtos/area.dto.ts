@@ -6,7 +6,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { TableDto } from './tables.dto';
+import { TableGroupDto } from './table-group.dto';
 
 export class AreaDto {
   @IsString()
@@ -15,7 +15,7 @@ export class AreaDto {
 
   @IsDefined()
   @IsObject({ each: true })
-  @Type(() => TableDto)
+  @Type(() => TableGroupDto)
   @ValidateNested({ each: true })
-  readonly capacity: TableDto[];
+  readonly capacity: TableGroupDto[];
 }

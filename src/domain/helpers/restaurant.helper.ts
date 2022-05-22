@@ -1,45 +1,48 @@
-import { IReservation, ITables } from '../entities';
+import { IReservation, ITableGroup } from '../entities';
 import { Slot, TimeFrame } from '../valueObjects';
 
 export class RestaurantHelper {
   static getAreaCapacityUpdated(
-    capacity: ITables[],
+    capacity: ITableGroup[],
     reservations: IReservation[],
-  ): ITables[] {
-    return capacity.map((tables) => {
+  ): ITableGroup[] {
+    return capacity.map((tableGroup) => {
       const numOfTableReservations = reservations.reduce((acc, curr) => {
-        if (curr.tablesId == tables.id) {
+        if (curr.tableGroupId == tableGroup.id) {
           return (acc += 1);
         }
         return acc;
       }, 0);
 
-      return { ...tables, quantity: tables.quantity - numOfTableReservations };
+      return {
+        ...tableGroup,
+        quantity: tableGroup.quantity - numOfTableReservations,
+      };
     });
   }
 
-  static createTimeSlot(tables: ITables[], timeframe: TimeFrame) {
+  static createTimeSlot(tableGroups: ITableGroup[], timeframe: TimeFrame) {
     const slots: Slot[] = [];
 
-    tables.forEach((table) => {
-      if (table.quantity < 1) return;
+    tableGroups.forEach((tableGroup) => {
+      if (tableGroup.quantity < 1) return;
 
-      const interations = table.max - table.min + 1;
+      const interations = tableGroup.max - tableGroup.min + 1;
       [...Array(interations).keys()].forEach((value) => {
-        const partySize = table.min + value;
+        const partySize = tableGroup.min + value;
         const slotWithPartySize = slots.find(
           (slot) => slot.partySize === partySize,
         );
         if (slotWithPartySize) {
-          slotWithPartySize.openSpots += table.quantity;
-          slotWithPartySize.tablesId.push(table.id);
+          slotWithPartySize.openSpots += tableGroup.quantity;
+          slotWithPartySize.tableGroupId.push(tableGroup.id);
         } else {
           slots.push({
-            openSpots: table.quantity,
+            openSpots: tableGroup.quantity,
             partySize: partySize,
             startTime: timeframe.from,
             endTime: timeframe.to,
-            tablesId: [table.id],
+            tableGroupId: [tableGroup.id],
           });
         }
       });

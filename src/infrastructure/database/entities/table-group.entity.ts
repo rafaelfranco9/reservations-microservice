@@ -1,4 +1,4 @@
-import { IArea, IReservation, ITables } from '@domain';
+import { IArea, IReservation, ITableGroup } from '@domain';
 import {
   Column,
   Entity,
@@ -10,7 +10,7 @@ import { Area } from './area.entity';
 import { Reservation } from './reservation.entity';
 
 @Entity()
-export class Tables implements ITables {
+export class TableGroup implements ITableGroup {
   @PrimaryGeneratedColumn()
   id: number;
 
