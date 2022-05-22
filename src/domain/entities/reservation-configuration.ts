@@ -1,6 +1,6 @@
 import { IWeekdays } from './weekdays';
 
-export interface IReservationService {
+export interface IReservationConfiguration {
   id: number;
   restaurantId: number;
   isActive: boolean;

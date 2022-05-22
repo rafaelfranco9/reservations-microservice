@@ -1,11 +1,12 @@
 export interface IReservation {
   id: number;
-  restaurantId: string;
+  restaurantId: number;
   customer: string;
   date: string;
   fromHour: number;
   toHour: number;
   partySize: number;
-  areaId: string;
-  tablesId: string;
+  areaId: number;
+  tableGroupId: number;
 }
+//TODO: AGREGAR STATUS

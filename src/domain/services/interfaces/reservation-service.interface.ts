@@ -1,14 +1,21 @@
 import {
-  CreateReservationServiceDto,
+  IReservation,
+  CreateReservationDto,
+  UpdateReservationDto,
   ICrudOperations,
-  IReservationService,
-  UpdateReservationServiceDto,
+  TimeFrame,
 } from '@domain';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IReservationServiceService
+export interface IReservationService
   extends ICrudOperations<
-    IReservationService,
-    CreateReservationServiceDto,
-    UpdateReservationServiceDto
-  > {}
+    IReservation,
+    CreateReservationDto,
+    UpdateReservationDto
+  > {
+  getByTablesIdAndDateTime(
+    tableGroupId: number,
+    date: string,
+    timeframe: TimeFrame,
+  ): Promise<IReservation[]>;
+}

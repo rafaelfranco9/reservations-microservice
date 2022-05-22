@@ -7,10 +7,11 @@ import {
   IsNumber,
   IsObject,
   IsString,
+  ValidateNested,
 } from 'class-validator';
 import { WeekdaysDto } from './weekdays.dto';
 
-export class CreateReservationServiceDto {
+export class CreateReservationConfigurationDto {
   @IsDefined()
   @IsNumber()
   @IsNotEmpty()
@@ -24,6 +25,7 @@ export class CreateReservationServiceDto {
   @IsDefined()
   @IsObject()
   @Type(() => WeekdaysDto)
+  @ValidateNested({ each: true })
   readonly weekdays: WeekdaysDto;
 
   @IsDefined()
@@ -41,6 +43,6 @@ export class CreateReservationServiceDto {
   readonly inactiveDates: string[];
 }
 
-export class UpdateReservationServiceDto extends PartialType(
-  CreateReservationServiceDto,
+export class UpdateReservationConfigurationDto extends PartialType(
+  CreateReservationConfigurationDto,
 ) {}

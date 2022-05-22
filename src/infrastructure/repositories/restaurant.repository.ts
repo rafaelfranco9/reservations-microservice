@@ -1,43 +1,44 @@
-import {
-  CommonmExceptionMessages,
-  CreateRestaurantDto,
-  UpdateRestaurantDto,
-} from '@domain';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IGenericRepository } from 'src/domain/abstracts/generic-repository.abstract';
 import { Repository } from 'typeorm';
-import { Restaurant } from '../database';
+import { Restaurant } from '@database';
+import {
+  CommonExceptionMessages,
+  CreateRestaurantDto,
+  IRestaurant,
+  IRestaurantRepository,
+  UpdateRestaurantDto,
+} from '@domain';
 
 @Injectable()
-export class RestaurantRepository implements IGenericRepository<Restaurant> {
+export class RestaurantRepository implements IRestaurantRepository {
   constructor(
     @InjectRepository(Restaurant)
-    private readonly repository: Repository<Restaurant>,
+    private readonly repository: Repository<IRestaurant>,
   ) {}
 
-  getAll(): Promise<Restaurant[]> {
+  getAll(): Promise<IRestaurant[]> {
     return this.repository.find({ relations: ['areas', 'areas.capacity'] });
   }
 
-  async getOne(id: number): Promise<Restaurant> {
+  async getOne(id: number): Promise<IRestaurant> {
     const restaurant = await this.repository.findOne(id, {
       relations: ['areas', 'areas.capacity'],
     });
     if (!restaurant) {
       throw new NotFoundException(
-        CommonmExceptionMessages.itemNotFound('restaurant', id),
+        CommonExceptionMessages.itemNotFound('restaurant', id),
       );
     }
     return restaurant;
   }
 
-  create(item: CreateRestaurantDto): Promise<Restaurant> {
+  create(item: CreateRestaurantDto): Promise<IRestaurant> {
     const restaurant = this.repository.create(item);
     return this.repository.save(restaurant);
   }
 
-  async update(id: number, item: UpdateRestaurantDto): Promise<Restaurant> {
+  async update(id: number, item: UpdateRestaurantDto): Promise<IRestaurant> {
     const restaurant = await this.repository.preload({
       id,
       ...item,
@@ -45,13 +46,13 @@ export class RestaurantRepository implements IGenericRepository<Restaurant> {
 
     if (!restaurant) {
       throw new NotFoundException(
-        CommonmExceptionMessages.itemNotFound('restaurant', id),
+        CommonExceptionMessages.itemNotFound('restaurant', id),
       );
     }
     return this.repository.save(restaurant);
   }
 
-  async delete(id: number): Promise<Restaurant> {
+  async delete(id: number): Promise<IRestaurant> {
     const restaurant = await this.getOne(id);
     return this.repository.remove(restaurant);
   }

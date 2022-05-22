@@ -1,4 +1,4 @@
-import { IArea, ITables } from '@domain';
+import { IArea, IReservation, ITableGroup } from '@domain';
 import {
   Column,
   Entity,
@@ -6,8 +6,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Reservation } from './reservation.entity';
 import { Restaurant } from './restaurant.entity';
-import { Tables } from './tables.entity';
+import { TableGroup } from './table-group.entity';
 
 @Entity()
 export class Area implements IArea {
@@ -17,10 +18,10 @@ export class Area implements IArea {
   @Column({ type: 'varchar', length: 120 })
   name: string;
 
-  @OneToMany(() => Tables, (table) => table.area, {
+  @OneToMany(() => TableGroup, (tableGroup) => tableGroup.area, {
     cascade: true,
   })
-  capacity: ITables[];
+  capacity: ITableGroup[];
 
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.areas, {
     orphanedRowAction: 'delete',
@@ -28,4 +29,9 @@ export class Area implements IArea {
     onUpdate: 'CASCADE',
   })
   restaurant: Restaurant;
+
+  @OneToMany(() => Reservation, (reservation) => reservation.area, {
+    cascade: true,
+  })
+  reservations: IReservation[];
 }

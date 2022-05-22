@@ -1,7 +1,7 @@
-import { ITables } from './tables';
+import { ITableGroup } from './table-group';
 
 export interface IArea {
   id: number;
   name: string;
-  capacity: ITables[];
+  capacity: ITableGroup[];
 }

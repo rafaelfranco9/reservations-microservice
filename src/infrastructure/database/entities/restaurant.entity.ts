@@ -1,4 +1,4 @@
-import { IArea, IRestaurant } from '@domain';
+import { IArea, IReservation, IRestaurant } from '@domain';
 import {
   Column,
   Entity,
@@ -7,7 +7,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Area } from './area.entity';
-import { ReservationService } from './reservation-service.entity';
+import { ReservationConfiguration } from './reservation-configuration.entity';
+import { Reservation } from './reservation.entity';
 
 @Entity()
 export class Restaurant implements IRestaurant {
@@ -32,9 +33,14 @@ export class Restaurant implements IRestaurant {
   areas: IArea[];
 
   @OneToOne(
-    () => ReservationService,
+    () => ReservationConfiguration,
     (reservationService) => reservationService.restaurant,
-    { nullable: true },
+    { nullable: true, cascade: true },
   )
-  reservationServices: ReservationService;
+  reservationConfiguration: ReservationConfiguration;
+
+  @OneToMany(() => Reservation, (reservation) => reservation.restaurant, {
+    cascade: true,
+  })
+  reservations: IReservation[];
 }

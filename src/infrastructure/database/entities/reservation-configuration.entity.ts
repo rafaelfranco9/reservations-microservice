@@ -1,4 +1,4 @@
-import { IReservationService, IWeekdays } from '@domain';
+import { IReservationConfiguration, IWeekdays } from '@domain';
 import {
   Column,
   Entity,
@@ -9,7 +9,7 @@ import {
 import { Restaurant } from './restaurant.entity';
 
 @Entity()
-export class ReservationService implements IReservationService {
+export class ReservationConfiguration implements IReservationConfiguration {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -32,6 +32,13 @@ export class ReservationService implements IReservationService {
   restaurantId: number;
 
   @JoinColumn()
-  @OneToOne(() => Restaurant, (restaurant) => restaurant.reservationServices)
+  @OneToOne(
+    () => Restaurant,
+    (restaurant) => restaurant.reservationConfiguration,
+    {
+      orphanedRowAction: 'delete',
+      onDelete: 'CASCADE',
+    },
+  )
   restaurant: Restaurant;
 }

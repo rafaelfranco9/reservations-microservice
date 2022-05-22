@@ -1,4 +1,4 @@
-export interface ITables {
+export interface ITableGroup {
   id: number;
   quantity: number;
   min: number;
