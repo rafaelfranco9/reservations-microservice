@@ -5,7 +5,7 @@ import {
   TimeHelper,
   MIN_TIME_BEFORE_RESERVATION,
   IReservationConfiguration,
-  RestaurantReservationsInactive,
+  ReservationConfigurationInactiveException,
   ReservationConfigurationHelper,
   IsoWeekdays,
   ReservationDateSoFarException,
@@ -48,7 +48,7 @@ export class ValidDateHandler extends AbstractHandler<CreateReservationDto> {
 
   private validateWithConfiguration(reservation: CreateReservationDto) {
     if (!this.configuration.isActive)
-      throw new RestaurantReservationsInactive();
+      throw new ReservationConfigurationInactiveException();
 
     if (
       TimeHelper.dateIsInList(
@@ -56,7 +56,7 @@ export class ValidDateHandler extends AbstractHandler<CreateReservationDto> {
         this.configuration.inactiveDates,
       )
     )
-      throw new RestaurantReservationsInactive();
+      throw new ReservationConfigurationInactiveException();
 
     if (
       !ReservationConfigurationHelper.isValidWeekday(
@@ -64,7 +64,7 @@ export class ValidDateHandler extends AbstractHandler<CreateReservationDto> {
         TimeHelper.getWeekday(reservation.date) as IsoWeekdays,
       )
     ) {
-      throw new RestaurantReservationsInactive();
+      throw new ReservationConfigurationInactiveException();
     }
     return true;
   }

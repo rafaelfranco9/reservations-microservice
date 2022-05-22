@@ -20,15 +20,14 @@ export class ReservationHelper {
     return partySize >= tableGroup.min && partySize <= tableGroup.max;
   }
 
-  static validTimeFrame(
-    restaurantOperationTimeframe: TimeFrame,
+  static validReservationTimeFrame(
+    reservationConfigurationTimeframe: TimeFrame,
     reservationSlotTimeframe: TimeFrame,
     restaurantMealAverage: number,
   ) {
     return (
-      reservationSlotTimeframe.from >= restaurantOperationTimeframe.from &&
-      reservationSlotTimeframe.to <= restaurantOperationTimeframe.to &&
-      reservationSlotTimeframe.to > reservationSlotTimeframe.from &&
+      reservationSlotTimeframe.from >= reservationConfigurationTimeframe.from &&
+      reservationSlotTimeframe.to <= reservationConfigurationTimeframe.to &&
       reservationSlotTimeframe.to - reservationSlotTimeframe.from <=
         restaurantMealAverage
     );

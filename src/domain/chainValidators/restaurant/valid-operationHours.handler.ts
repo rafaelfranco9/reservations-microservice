@@ -1,4 +1,4 @@
-import { ONE_DAY_IN_MINUTES, TimeHelper, CreateRestaurantDto } from '@domain';
+import { TimeHelper, CreateRestaurantDto } from '@domain';
 import {
   RestaurantOperationHoursException,
   TimeFormatException,
@@ -20,23 +20,16 @@ export class ValidOperationHoursHandler extends AbstractHandler<CreateRestaurant
     )
       throw new TimeFormatException();
 
-    let hasDayOverflow = false;
-
-    while (closeHour >= ONE_DAY_IN_MINUTES) {
-      hasDayOverflow = true;
-      closeHour -= ONE_DAY_IN_MINUTES;
+    if (
+      !TimeHelper.isValidTimeFrameInMinutes(
+        openHour,
+        closeHour,
+        averageMealDuration,
+      )
+    ) {
+      throw new RestaurantOperationHoursException();
     }
 
-    if (hasDayOverflow) {
-      if (closeHour <= openHour) {
-        return super.handle(createRestaurantDto);
-      }
-    } else {
-      if (closeHour > openHour && closeHour - openHour >= averageMealDuration) {
-        return super.handle(createRestaurantDto);
-      }
-    }
-
-    throw new RestaurantOperationHoursException(hasDayOverflow);
+    return super.handle(createRestaurantDto);
   }
 }

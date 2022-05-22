@@ -28,7 +28,7 @@ export class ValidTimeframeHandler extends AbstractHandler<CreateReservationDto>
     };
 
     if (
-      ReservationHelper.validTimeFrame(
+      ReservationHelper.validReservationTimeFrame(
         reservationAcceptanceTimeframe,
         reservationTimeframe,
         this.restaurant.averageMealDuration,

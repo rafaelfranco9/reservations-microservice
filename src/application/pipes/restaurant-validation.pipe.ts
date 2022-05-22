@@ -1,9 +1,9 @@
+import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 import {
   ChainInitializer,
   CreateRestaurantDto,
   ValidOperationHoursHandler,
 } from '@domain';
-import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
 @Injectable()
 export class RestaurantValidationPipe implements PipeTransform {
@@ -11,8 +11,6 @@ export class RestaurantValidationPipe implements PipeTransform {
     const validationChain = new ChainInitializer<CreateRestaurantDto>();
     validationChain.setNext(new ValidOperationHoursHandler());
 
-    const validRestaurant = validationChain.handle(restaurant);
-
-    return validRestaurant;
+    return validationChain.handle(restaurant);
   }
 }

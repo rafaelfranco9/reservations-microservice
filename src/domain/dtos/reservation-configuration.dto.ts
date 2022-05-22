@@ -7,6 +7,7 @@ import {
   IsNumber,
   IsObject,
   IsString,
+  ValidateNested,
 } from 'class-validator';
 import { WeekdaysDto } from './weekdays.dto';
 
@@ -24,6 +25,7 @@ export class CreateReservationConfigurationDto {
   @IsDefined()
   @IsObject()
   @Type(() => WeekdaysDto)
+  @ValidateNested({ each: true })
   readonly weekdays: WeekdaysDto;
 
   @IsDefined()

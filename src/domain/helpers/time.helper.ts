@@ -12,6 +12,22 @@ export class TimeHelper {
     return time >= startOfDayInMinutes && time <= endTimeInMinutes;
   }
 
+  static isValidTimeFrameInMinutes(
+    from: number,
+    to: number,
+    minDifference = 0,
+  ): boolean {
+    let hasDayOverflow = false;
+
+    while (to >= ONE_DAY_IN_MINUTES) {
+      hasDayOverflow = true;
+      to -= ONE_DAY_IN_MINUTES;
+    }
+
+    if (hasDayOverflow) return to <= from;
+    return to > from && to - from >= minDifference;
+  }
+
   static convert24hTimeToMinutes(time: string): number {
     if (time.split(':').length < 2) throw new TimeFormatException();
     const daysOverflow = +time.split(':')[1].split('+')[1];
