@@ -2,6 +2,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@infrastructure';
 import { ConfigService } from '@nestjs/config';
+import { TimeHelper } from '@domain';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

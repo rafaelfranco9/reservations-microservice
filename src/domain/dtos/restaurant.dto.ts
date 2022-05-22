@@ -1,5 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { Type } from 'class-transformer';
+import { AreaDto } from './area.dto';
 import {
   IsString,
   IsNumber,
@@ -7,8 +8,9 @@ import {
   IsNotEmpty,
   IsDefined,
   ValidateNested,
+  ArrayMinSize,
+  IsPositive,
 } from 'class-validator';
-import { AreaDto } from './area.dto';
 
 export class CreateRestaurantDto {
   @IsDefined()
@@ -29,12 +31,14 @@ export class CreateRestaurantDto {
   @IsDefined()
   @IsNumber()
   @IsNotEmpty()
+  @IsPositive()
   readonly averageMealDuration: number;
 
   @IsDefined()
   @IsObject({ each: true })
   @Type(() => AreaDto)
   @ValidateNested({ each: true })
+  @ArrayMinSize(1)
   readonly areas: AreaDto[];
 }
 

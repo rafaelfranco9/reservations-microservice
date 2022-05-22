@@ -14,6 +14,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { RestaurantValidationPipe } from '../pipes/restaurant-validation.pipe';
 
 @Controller('restaurant')
 export class RestaurantController {
@@ -43,7 +44,9 @@ export class RestaurantController {
   }
 
   @Post()
-  create(@Body() createRestaurantDto: CreateRestaurantDto) {
+  create(
+    @Body(RestaurantValidationPipe) createRestaurantDto: CreateRestaurantDto,
+  ) {
     return this.restaurantService.create(createRestaurantDto);
   }
 

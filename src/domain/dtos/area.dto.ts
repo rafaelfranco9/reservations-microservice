@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
 import {
+  ArrayMinSize,
   IsDefined,
   IsNotEmpty,
   IsObject,
@@ -17,5 +18,6 @@ export class AreaDto {
   @IsObject({ each: true })
   @Type(() => TableGroupDto)
   @ValidateNested({ each: true })
+  @ArrayMinSize(1)
   readonly capacity: TableGroupDto[];
 }
