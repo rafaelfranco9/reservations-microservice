@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@infrastructure';
 import { ConfigService } from '@nestjs/config';
 import { TimeHelper } from '@domain';
+import { TypeORMExceptionFilter } from '@application';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +16,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useGlobalFilters(new TypeORMExceptionFilter());
 
   await app.listen(PORT || 3001, () =>
     Logger.log(`App started and listening on port ${PORT}`, 'MAIN'),

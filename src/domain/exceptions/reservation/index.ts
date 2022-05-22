@@ -5,3 +5,4 @@ export * from './reservation-date.exception';
 export * from './reservation-table.exception';
 export * from './reservation-min-time-before.exception';
 export * from './reservation-area.expection';
+export * from './reservation-weekday.exception';

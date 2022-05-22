@@ -9,6 +9,7 @@ import {
   ReservationConfigurationHelper,
   IsoWeekdays,
   ReservationDateSoFarException,
+  ReservationWeekdayException,
 } from '@domain';
 import { AbstractHandler } from '../abstract-handler.abstract';
 
@@ -64,7 +65,9 @@ export class ValidDateHandler extends AbstractHandler<CreateReservationDto> {
         TimeHelper.getWeekday(reservation.date) as IsoWeekdays,
       )
     ) {
-      throw new ReservationConfigurationInactiveException();
+      throw new ReservationWeekdayException(
+        TimeHelper.getWeekdayName(reservation.date),
+      );
     }
     return true;
   }

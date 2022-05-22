@@ -116,4 +116,8 @@ export class TimeHelper {
     return moment(date, 'MM-DD-YYYY', true).isoWeekday();
     //1 monday - 7 sunday
   }
+
+  static getWeekdayName(date: string) {
+    return moment(date, 'MM-DD-YYYY', true).format('dddd');
+  }
 }
